@@ -1,12 +1,6 @@
-import { ReactNode } from "react";
-import { useState } from "react";
-import Check from './Layout/Main/RCMND/Check';
+import Check from "./Check";
 
 const RCMND = () => {
-
-
-
-
 
     return (
         <div className="h-screen">
