@@ -6,6 +6,7 @@ import RCMND from './Layout/Main/RCMND/RCMND';
 
 
 function App() {
+
   return (
     <div className='App h-full bg-[#eae7de]'>
       {/* 기본 배경색 */}
