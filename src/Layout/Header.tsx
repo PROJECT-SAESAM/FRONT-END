@@ -15,7 +15,7 @@ const Header = () => {
             arr.map((git_id) => {
                 return (
                     <a className="flex github_link" href={`${baseURL}${git_id}`} >
-                        <img className="w-5 h-5 mr-2" src="./IMG/kisspng-github-computer-icons-clip-art-gits-5b4d20ab4d91f7.4085637115317812913177.png" alt="github icon" />
+                        <img className="w-4 h-4 mr-2" src="./IMG/kisspng-github-computer-icons-clip-art-gits-5b4d20ab4d91f7.4085637115317812913177.png" alt="github icon" />
                         {git_id}
                     </a>
                 )
@@ -28,18 +28,18 @@ const Header = () => {
     return (
         <div className="h-screen">
             {/* <video src="./video/coffee_shop.mp4" loop autoPlay muted /> */}
-            <div className="flex p-3 space-x-8">
+            <div className="flex p-3 space-x-8 text-xs">
                 {visitGithub(teamInfo)}
             </div>
-            <div className="grid pt-32 place-content-center">
+            <div className="grid pt-24 place-content-center">
                 <div>
-                    <img className="" src="./IMG/seasam_logo.png" alt="saesam logo" />
-                    <img className="pt-4 -translate-x-6" src="./IMG/saesam_text_logo.png" alt="saesam text logo" />
+                    <img className="translate-x-12 h-3/6" src="./IMG/seasam_logo.png" alt="saesam logo" />
+                    <img className="h-32 pt-4 -translate-x-6" src="./IMG/saesam_text_logo.png" alt="saesam text logo" />
+                    <p className="pt-2 text-xl font-medium tracking-widest text-center -translate-x-9">
+                        {/* todo : 각 폰트사이 여백 더 크게 */}
+                        새삼스러울, 서울
+                    </p>
                 </div>
-                <p className="pt-5 text-xl font-semibold tracking-widest text-center -translate-x-4">
-                    {/* todo : 각 폰트사이 여백 더 크게 */}
-                    새삼스러울, 서울
-                </p>
             </div>
         </div>
     )

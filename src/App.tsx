@@ -12,6 +12,7 @@ function App() {
       {/* 기본 배경색 */}
       <Header />
       <RCMND />
+      <div className='h-36' />
       {/* <Footer /> */}
     </div>
   );
