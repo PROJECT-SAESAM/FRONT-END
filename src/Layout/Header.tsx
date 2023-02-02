@@ -26,7 +26,7 @@ const Header = () => {
 
 
     return (
-        <div className="h-screen">
+        <div>
             {/* <video src="./video/coffee_shop.mp4" loop autoPlay muted /> */}
             <div className="flex p-3 space-x-8 text-xs">
                 {visitGithub(teamInfo)}

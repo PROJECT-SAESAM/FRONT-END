@@ -47,21 +47,21 @@ const Check = () => {
 
         console.log({ key, values });
 
-        const checkedIMG = './IMG/seasam_logo.png';
-
         // 키워드 리스트 돌려서 체크박스 생성 
         const checkBox =
             values.map((value) => {
-                return (
-                    <><p className="p-2"><label><input type="checkbox" name={key} value={value} onChange={(e) => singleCheck(e.target.checked, e.target.value)}
-                        checked={checkedKeywordList.includes(value) ? true : false} />{value}</label></p></>
+                return (//체크박스 디자인 바꾸기
+                    // className = "w-4 h-4 border-2 rounded-sm appearance-none border-slate-700"
+                    <><p className="p-2"><label><input type="checkbox" name={key} id={value} value={value} onChange={(e) => singleCheck(e.target.checked, e.target.value)}
+                        checked={checkedKeywordList.includes(value) ? true : false} />{value}</label>
+                    </p></>
                 )
             })
 
 
         return (
             <>
-                <p className="w-full p-2">
+                <p className="w-full p-2 h-fit">
                     <label>
                         <input type="checkbox" onChange={(e) => allCheck(e.target.checked)} checked={checkedKeywordList.length === values.length ? true : false} />
                         전체선택
@@ -74,23 +74,6 @@ const Check = () => {
     }
 
 
-    // 다음 버튼
-    const nextButton = (n: number): ReactNode => {
-        // console.log("현재 n은 : " + n);
-        // n++
-        // console.log("현재 n은 : " + n);
-
-        return (
-            // TODO : 화살표 이미지로 변경
-            <>
-                <p className="flex p-2 place-content-center">
-                    <label>
-                        <button type="button" name="nextButton" onClick={() => { setKeywordOptions(categoryList[n]) }} >Next</button>
-                    </label>
-                </p>
-            </>
-        )
-    }
 
     // 전체선택이 체크되면
     const allCheck = (checked: boolean) => {
@@ -114,35 +97,59 @@ const Check = () => {
     console.log(checkedKeywordList)
 
     // 이전 버튼
-    const PRVSButton = () => {
+    const backButton = () => {
         return (
-            // TODO : 화살표 이미지로 변경
             <>
-                <p className="flex p-2 place-content-center">
+                <p className="flex w-5 p-2 pl-8 place-content-center ">
                     <label>
-                        <button type="button" name="PRVSButton" >이전</button>
+                        <button type="button" name="backButton" >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#39AE68" className="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                            </svg>
+                        </button>
+                        <span className="text-[#39AE68] font-medium hover:underline">Back</span>
                     </label>
                 </p>
             </>
         )
     }
 
+    // 다음 버튼
+    const nextButton = (n: number): ReactNode => {
+        // console.log("현재 n은 : " + n);
+        // n++
+        // console.log("현재 n은 : " + n);
+
+        return (
+            <>
+                <p className="flex w-5 p-2 pr-8 place-content-center">
+                    <label>
+                        <button type="button" name="nextButton" onClick={() => { setKeywordOptions(categoryList[n]) }} >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#39AE68" className="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                            </svg>
+                        </button>
+                        <span className="text-[#39AE68] font-medium hover:underline">Next</span>
+                    </label>
+                </p>
+            </>
+        )
+    }
 
     return (
-        <div className="h-screen">
-            {/* whatever you want */}
-            <img className="whatEverYouWant! h-36 w-36 translate-y-28" src="./IMG/what ever you want!.png" alt="what ever you want!" />
+        <div>
             {/* 베이지 박스 */}
-            <div className="bg-[#fff7e3] h-4/5 w-64 rounded-r-3xl pt-28 px-5">
+            <div className="bg-[#fff7e3] w-72 h-full rounded-r-3xl px-5 drop-shadow-2xl">
+                {/* whatever you want */}
+                < img className="whatEverYouWant! -translate-y-8 h-36 w-36" src="./IMG/what ever you want!.png" alt="what ever you want!" />
                 {/* 체크리스트랑(전체선택 포함) 다음 버튼 */}
-                <div className="flex flex-wrap h-full">
+                <div className="flex flex-wrap pt-3 -translate-y-8 h-fit">
                     <div className="flex flex-row flex-wrap content-start justify-start gap-4 p-3 h-96">{keywordCheckBox(keywordOptions)}</div>
-                    <div className="w-full">
-                        <div>{PRVSButton()}</div>
+                    <div className="flex flex-row justify-between w-full pb-1 pr-2">
+                        <div>{backButton()}</div>
                         <div>{nextButton(0)}</div>
                     </div>
                 </div>
-
             </div>
         </div>
     )
