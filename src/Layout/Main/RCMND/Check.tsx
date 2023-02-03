@@ -100,14 +100,14 @@ const Check = () => {
     const backButton = () => {
         return (
             <>
-                <p className="flex w-5 p-2 pl-8 place-content-center ">
+                <p className="pr-8 text-sm font-medium text-gray-500 w-fit hover:-translate-y-1 hover:underline">
                     <label>
-                        <button type="button" name="backButton" >
+                        <button type="button" name="backButton" className="translate-y-2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#39AE68" className="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                             </svg>
                         </button>
-                        <span className="text-[#39AE68] font-medium hover:underline">Back</span>
+                        <span className="">Back</span>
                     </label>
                 </p>
             </>
@@ -122,14 +122,14 @@ const Check = () => {
 
         return (
             <>
-                <p className="flex w-5 p-2 pr-8 place-content-center">
+                <p className="pl-8 text-sm font-medium text-gray-500 w-fit hover:-translate-y-1 hover:underline">
                     <label>
-                        <button type="button" name="nextButton" onClick={() => { setKeywordOptions(categoryList[n]) }} >
+                        <span>Next</span>
+                        <button type="button" name="nextButton" className="translate-y-2" onClick={() => { setKeywordOptions(categoryList[n]) }} >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#39AE68" className="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                             </svg>
                         </button>
-                        <span className="text-[#39AE68] font-medium hover:underline">Next</span>
                     </label>
                 </p>
             </>
@@ -137,15 +137,15 @@ const Check = () => {
     }
 
     return (
-        <div>
+        <div className="pr-10">
             {/* 베이지 박스 */}
-            <div className="bg-[#fff7e3] w-72 h-full rounded-r-3xl px-5 drop-shadow-2xl">
+            <div className="bg-[#fff7e3] w-80 h-fit rounded-r-3xl px-5 drop-shadow-2xl">
                 {/* whatever you want */}
                 < img className="whatEverYouWant! -translate-y-8 h-36 w-36" src="./IMG/what ever you want!.png" alt="what ever you want!" />
                 {/* 체크리스트랑(전체선택 포함) 다음 버튼 */}
                 <div className="flex flex-wrap pt-3 -translate-y-8 h-fit">
                     <div className="flex flex-row flex-wrap content-start justify-start gap-4 p-3 h-96">{keywordCheckBox(keywordOptions)}</div>
-                    <div className="flex flex-row justify-between w-full pb-1 pr-2">
+                    <div className="flex flex-row justify-between w-full pt-10 pb-1 pr-2">
                         <div>{backButton()}</div>
                         <div>{nextButton(0)}</div>
                     </div>

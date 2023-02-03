@@ -1,8 +1,11 @@
 import Check from "./Check";
 import { ReactNode } from "react";
 import { useState } from "react";
+import React, { useRef } from "react";
 import axios from "axios";
 import qs from "qs";
+// import Modal from 'react-modal';
+
 
 // DB에서 반환된 결과 오른쪽 화면에 띄우기 
 const RCMND = () => {
@@ -13,39 +16,49 @@ const RCMND = () => {
         const cafeIMG1 = "/IMG/dumdum/21797_10632_1745.jpg";
         const cafeIMG2 = "/IMG/dumdum/21797_10633_1844.jpg";
         const cafeIMG3 = "/IMG/dumdum/21797_10635_1948.jpg";
+        const cafeIMG4 = "/IMG/dumdum/21797_10636_2010.jpg";
+        const cafeIMG5 = "/IMG/dumdum/62440630_706233776497984_5412862210687989344_n.png";
+        const cafeIMG6 = "/IMG/dumdum/image-28.webp";
+        const cafeIMG7 = "/IMG/dumdum/images (1).jpeg";
+        const cafeIMG8 = "/IMG/dumdum/images (2).jpeg";
+        const cafeIMG9 = "/IMG/dumdum/images (3).jpeg";
+        const cafeIMG10 = "/IMG/dumdum/images (4).jpeg";
+        const cafeIMG11 = "/IMG/dumdum/images (5).jpeg";
+        const cafeIMG12 = "/IMG/dumdum/images (6).jpeg";
+        const cafeIMG13 = "/IMG/dumdum/images (7).jpeg";
+        const cafeIMG14 = "/IMG/dumdum/images (8).jpeg";
+        const cafeIMG15 = "/IMG/dumdum/images (9).jpeg";
 
         const listIMGs = [cafeIMG1, cafeIMG2, cafeIMG3];
         // const [IMG, setIMG] = useState<>(cafeIMG1);
 
         return (
-            <div className="flex">
-                <div className="container grid justify-center grid-cols-5 grid-rows-3 gap-2 pt-4 ">
-                    {/* <button className="bg-[url('https://www.google.com/imgres?imgurl=https%3A%2F%2Ft3.daumcdn.net%2Fthumb%2FR720x0%2F%3Ffname%3Dhttp%3A%2F%2Ft1.daumcdn.net%2Fbrunch%2Fservice%2Fuser%2F5GdC%2Fimage%2FbYmpkwCBPcrYP5f0QxHSS24ANsw&imgrefurl=https%3A%2F%2Fbrunch.co.kr%2F%40%405GdC%2F104&tbnid=HP7LmFkn6pll2M&vet=12ahUKEwiD1-ft3_b8AhWMHaYKHeIiCa4QMygOegUIARDfAQ..i&docid=p7Ed31O1GN_wBM&w=720&h=900&q=%EC%B9%B4%ED%8E%98%20%EC%84%B1%EC%88%98&ved=2ahUKEwiD1-ft3_b8AhWMHaYKHeIiCa4QMygOegUIARDfAQ')]">
-                        버튼
+            // 이전 슬라이딩 버튼
+            <div className="flex w-full pl-4">
+                <div className="flex content-center pr-5">
+                    <button type="button" name="backPlaceButton" className="place-self-center hover:w-11/12 h-fit">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#A29B9B" className="w-full h-16 p-1">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                        </svg>
                     </button>
-                    <div className="flex">
-                        <img className="shadow-xl w-50 h-50 hover:grayscale" src={cafeIMG1} alt="성수 카페" />
-                        <span>대림창고</span>
-                    </div> */}
-                    <img className="shadow-xl w-50 h-50" src={cafeIMG2} alt="성수 카페" />
-                    <img className="shadow-xl w-50 h-50" src={cafeIMG1} alt="성수 카페" />
-                    <img className="shadow-xl w-50 h-50" src={cafeIMG1} alt="성수 카페" />
-                    <img className="shadow-xl w-50 h-50" src={cafeIMG1} alt="성수 카페" />
-                    <img className="shadow-xl w-50 h-50" src={cafeIMG1} alt="성수 카페" />
-                    <img className="shadow-xl w-50 h-50" src={cafeIMG1} alt="성수 카페" />
-                    <img className="shadow-xl w-50 h-50" src={cafeIMG1} alt="성수 카페" />
-                    <img className="shadow-xl w-50 h-50" src={cafeIMG2} alt="성수 카페" />
-                    <img className="shadow-xl w-50 h-50" src={cafeIMG1} alt="성수 카페" />
-                    <img className="shadow-xl w-50 h-50" src={cafeIMG3} alt="성수 카페" />
-                    <img className="shadow-xl w-50 h-50" src={cafeIMG1} alt="성수 카페" />
-                    <img className="shadow-xl w-50 h-50" src={cafeIMG1} alt="성수 카페" />
-                    <img className="shadow-xl w-50 h-50" src={cafeIMG1} alt="성수 카페" />
-                    <img className="shadow-xl w-50 h-50" src={cafeIMG1} alt="성수 카페" />
-                    <img className="shadow-xl w-50 h-50" src={cafeIMG1} alt="성수 카페" />
                 </div>
-                <div className="flex content-center w-fit">
-                    <button type="button" name="nextPlaceButton">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#A29B9B" className="w-10 h-10 pl-1">
+                {/* 결과값 공간들*/}
+                <div className="container grid grid-cols-5 grid-rows-3 gap-3 pt-2 w-fit">
+                    <label>
+                        <button onClick={() => setShowModal(true)}>
+                            <li className="relative list-none w-fit h-fit">
+                                <img className="shadow-xl w-44 h-44" src={cafeIMG1} alt="성수 카페" />
+                                <div className="absolute flex justify-center -translate-y-full bg-opacity-0 opacity-0 place-items-center w-44 h-44 hover:opacity-100 hover:bg-opacity-60 bg-neutral-400">
+                                    <p className="text-2xl font-semibold shadow-2xl via-black w-fit h-fit">대림창고</p>
+                                </div>
+                            </li>
+                        </button>
+                    </label>
+                </div>
+                {/* 다음 슬라이딩 버튼 */}
+                <div className="flex content-center pl-5">
+                    <button type="button" name="nextPlaceButton" className="place-self-center hover:w-11/12 h-fit">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#A29B9B" className="w-full h-16 p-1">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                         </svg>
                     </button>
@@ -54,6 +67,30 @@ const RCMND = () => {
         )
     }
 
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const outSection = useRef<HTMLInputElement>(null);
+
+    //모달창 닫기 구현중
+    // const showPlaceInfo = (visible: boolean) => {
+
+    //     const outClick = () => {
+    //         if (outSection.current) {
+    //             outSection.current.value = "";
+    //         }
+    //     };
+
+    //     if (!visible)
+    //         return null
+    //     return (
+    //         <div>
+    //             <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-sm">
+    //                 <div h-hit w-fit>my modal</div>
+    //             </div>
+    //             <input ref={outSection} />
+    //             <button onClick={outClick}></button>
+    //         </div>
+    //     )
+    // }
 
 
 
@@ -61,12 +98,14 @@ const RCMND = () => {
         <div className="h-screen">
             <div className="flex">
                 <div className="flex w-fit"><Check /></div>
-                <div className="pt-5 pr-3 pl-7 w-fit h-fit">{showRCMND()}</div>
+                <div className="flex justify-center w-full py-6 h-fit">{showRCMND()}</div>
+                {showPlaceInfo(showModal)}
             </div>
         </div>
 
     )
 };
+
 
 export default RCMND;
 
