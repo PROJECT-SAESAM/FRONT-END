@@ -13,37 +13,43 @@ import { JsxElement } from "typescript";
 
 const Check = () => {
 
-    // DB에서 받았다 친 카테고리
-    // ex) { 'firstKeyword': ['맛집', '카페', '술집', '문화공간']}
-    // , { 'mood': ['힐링', '신나는', '편안한', '포근한']}
-    // , { 'etc': ['가성비', '데이트', '친구', '가족']}
-
     interface CategoryType {
         [key: string]: string[]
     };
 
-    const firstKeyword: CategoryType = { 'placeType': ['맛집', '카페', '술집'] };
-    // DB에서 두번째로 반환된 키워드리스트
-    const secondKeyword: CategoryType = { 'case': ['카공', '커피맛집', '대화', '힐링'] };
-    // 세번째 반환
-    const thirdKeyword: CategoryType = { 'etc': ['가성비', '데이트', '친구', '가족'] };
+    // 테스트용 카테고리 더미
+    const firstCategory: CategoryType = { 'placeType': ['맛집', '카페', '술집'] };
+    const secondCategory: CategoryType = {
+        'station': ['성수역', '뚝섬역', '서울숲역'],
+        'distance': ['도보 5분 이내', '도보 5분~10분', '도보10분~15분', '도보 15분 이상']
+    };
+    const thirdCategory: CategoryType = {
+        'cafe': ['카공', '데이트', '대화', '모임'],
+        'restaurant': ['양식', '한식', '중식', '일식'],
+        'bar': ['막걸리', '맥주', '소주', '와인', '칵테일']
+    };
 
-    // 더미들 리스트
-    const categoryList: CategoryType[] = [firstKeyword, secondKeyword, thirdKeyword];
+    // 현재 카테고리
+    const [category, setCategory] = useState<CategoryType>(firstCategory);
 
-    // 카테고리 리스트가 새로 들어올때마다 같은이름으로 쓸래
-    const [keywordOptions, setKeywordOptions] = useState<CategoryType>(firstKeyword);
-
+    // 몇번째 카테고리인지
+    // let th = 0;
+    // const [th, setTh] = useState<number>(0);
 
     // 체크된 keyword를 담을 리스트
     const [checkedKeywordList, setCheckedKeywordList] = useState<string[]>([]);
 
+    const cate: CategoryType[] = [firstCategory, secondCategory, thirdCategory];
+    console.log(cate[1]);
+    // const [thn, setThn] = useState<number>(0);
+
+    // 체크박스 컴포넌트
     const keywordCheckBox = (category: CategoryType): ReactNode => {
 
         // 카테고리(key)
-        const key: string = Object.keys(category)[0];
+        let key: string = Object.keys(category)[0];//바꿔야됨
         // 키워드 리스트(value)
-        const values: string[] = category[key];
+        let values: string[] = category[key];
 
         console.log({ key, values });
 
@@ -51,19 +57,20 @@ const Check = () => {
         const checkBox =
             values.map((value) => {
                 return (//체크박스 디자인 바꾸기
-                    // className = "w-4 h-4 border-2 rounded-sm appearance-none border-slate-700"
-                    <><p className="p-2"><label><input type="checkbox" name={key} id={value} value={value} onChange={(e) => singleCheck(e.target.checked, e.target.value)}
-                        checked={checkedKeywordList.includes(value) ? true : false} />{value}</label>
-                    </p></>
+                    <>
+                        <p className="p-2"><label><input type="checkbox" id={value} value={value} onChange={(e) => singleCheck(e.target.checked, e.target.value)}
+                            checked={checkedKeywordList.includes(value) ? true : false} />{value}</label>
+                        </p>
+                    </>
                 )
             })
 
-
+        console.log("맨 첨" + category)
         return (
             <>
                 <p className="w-full p-2 h-fit">
                     <label>
-                        <input type="checkbox" onChange={(e) => allCheck(e.target.checked)} checked={checkedKeywordList.length === values.length ? true : false} />
+                        <input type="checkbox" onChange={(e) => allCheck(e.target.checked, key)} checked={checkedKeywordList.length === values.length ? true : false} />
                         전체선택
                     </label>
                 </p>
@@ -74,11 +81,10 @@ const Check = () => {
     }
 
 
-
     // 전체선택이 체크되면
-    const allCheck = (checked: boolean) => {
+    const allCheck = (checked: boolean, key: string) => {
         if (checked) {
-            const allKeywordList: string[] = firstKeyword['firstKeyword'];
+            const allKeywordList: string[] = category[key];
             setCheckedKeywordList(allKeywordList)
         } else {
             setCheckedKeywordList([])
@@ -90,11 +96,9 @@ const Check = () => {
         if (checked) {
             setCheckedKeywordList([...checkedKeywordList, id])
         } else {
-            setCheckedKeywordList(checkedKeywordList.filter((firstKeyword) => firstKeyword !== id))
+            setCheckedKeywordList(checkedKeywordList.filter((category) => category !== id))
         }
     }
-
-    console.log(checkedKeywordList)
 
     // 이전 버튼
     const backButton = () => {
@@ -114,27 +118,42 @@ const Check = () => {
         )
     }
 
-    // 다음 버튼
-    const nextButton = (n: number): ReactNode => {
-        // console.log("현재 n은 : " + n);
-        // n++
-        // console.log("현재 n은 : " + n);
-
-        return (
-            <>
-                <p className="pl-8 text-sm font-medium text-gray-500 w-fit hover:-translate-y-1 hover:underline">
-                    <label>
-                        <span>Next</span>
-                        <button type="button" name="nextButton" className="translate-y-2" onClick={() => { setKeywordOptions(categoryList[n]) }} >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#39AE68" className="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                            </svg>
-                        </button>
-                    </label>
-                </p>
-            </>
-        )
+    const th = () => {
+        console.log("넥스트버튼 클릭됨")
+        if (category == firstCategory) {
+            setCategory(secondCategory)
+            console.log(category)
+            return keywordCheckBox(category)
+        } else if (category == secondCategory) {
+            setCategory(thirdCategory)
+            console.log(category)
+            return keywordCheckBox(category)
+        } else { console.log(category) }
     }
+
+    // // 다음 버튼
+    // const nextButton = (): ReactNode => {
+
+
+    //     // return (
+
+    //     //     // <>
+    //     //     //     <p className="pl-8 text-sm font-medium text-gray-500 w-fit hover:-translate-y-1 hover:underline">
+    //     //     //         <label>
+    //     //     //             <span>Next</span>
+    //     //     //             <button type="button" name="nextButton" className="translate-y-2" onClick={() => (keywordCheckBox(category))} >
+    //     //     //                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#39AE68" className="w-6 h-6">
+    //     //     //                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+    //     //     //                 </svg>
+    //     //     //             </button>
+    //     //     //         </label>
+    //     //     //     </p>
+    //     //     // </>
+    //     // )
+
+    // }
+
+
 
     return (
         <div className="pr-10">
@@ -144,10 +163,21 @@ const Check = () => {
                 < img className="whatEverYouWant! -translate-y-8 h-36 w-36" src="./IMG/what ever you want!.png" alt="what ever you want!" />
                 {/* 체크리스트랑(전체선택 포함) 다음 버튼 */}
                 <div className="flex flex-wrap pt-3 -translate-y-8 h-fit">
-                    <div className="flex flex-row flex-wrap content-start justify-start gap-4 p-3 h-96">{keywordCheckBox(keywordOptions)}</div>
+                    <div className="flex flex-row flex-wrap content-start justify-start gap-4 p-3 h-96">{keywordCheckBox(category)}</div>
                     <div className="flex flex-row justify-between w-full pt-10 pb-1 pr-2">
-                        <div>{backButton()}</div>
-                        <div>{nextButton(0)}</div>
+                        {/* <div>{backButton()}</div> */}
+                        <>
+                            <p className="pl-8 text-sm font-medium text-gray-500 w-fit hover:-translate-y-1 hover:underline">
+                                <label>
+                                    <span>Next</span>
+                                    <button type="button" name="nextButton" className="translate-y-2" onClick={() => (th())} >
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#39AE68" className="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                        </svg>
+                                    </button>
+                                </label>
+                            </p>
+                        </>
                     </div>
                 </div>
             </div>
