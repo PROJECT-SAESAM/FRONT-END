@@ -1,15 +1,9 @@
 
 import { useState } from "react";
 import { ReactNode } from "react";
-import { JsxElement } from "typescript";
 
 
-// 키워드 리스트 받아서 체크리스트로 만들어서 보여주고                                      //done
-// 체크박스 상태 바뀌면 리스트에 업데이트                                                  //done
-// 선택된 체크박스 value들 모인 리스트 DB에 보내기 => 이것도 api 받으면
-// 전체 체크박스 만들기                                                                   //done
-// 전체동작로직 => api 받으면 연결하면서 해야됨 전체선택도 문제고 지금 문제야 문제
-// 이전 버튼 만들기
+
 
 const Check = () => {
 
@@ -130,28 +124,8 @@ const Check = () => {
             return keywordCheckBox(category)
         } else { console.log(category) }
     }
+    console.log(category)
 
-    // // 다음 버튼
-    // const nextButton = (): ReactNode => {
-
-
-    //     // return (
-
-    //     //     // <>
-    //     //     //     <p className="pl-8 text-sm font-medium text-gray-500 w-fit hover:-translate-y-1 hover:underline">
-    //     //     //         <label>
-    //     //     //             <span>Next</span>
-    //     //     //             <button type="button" name="nextButton" className="translate-y-2" onClick={() => (keywordCheckBox(category))} >
-    //     //     //                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#39AE68" className="w-6 h-6">
-    //     //     //                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-    //     //     //                 </svg>
-    //     //     //             </button>
-    //     //     //         </label>
-    //     //     //     </p>
-    //     //     // </>
-    //     // )
-
-    // }
 
 
 

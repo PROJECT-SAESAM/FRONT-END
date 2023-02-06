@@ -6,7 +6,10 @@ import axios from "axios";
 import qs from "qs";
 import { stringify } from "querystring";
 
-// import Modal from 'react-modal';
+
+// 모달창 열리면 스크롤 잠김 기능
+// 모달 외부 배경 누르면 닫힘 가능 근데 이제 모달을 눌러도 닫히는
+// 해결해
 
 
 // DB에서 반환된 결과 오른쪽 화면에 띄우기 
@@ -203,6 +206,7 @@ const RCMND = () => {
         }
     }
 
+
     const showContents = () => {
 
         const contents = dummy.data
@@ -288,10 +292,10 @@ const RCMND = () => {
         return (
             <div>
                 {/* 모달 배경 */}
-                <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-sm">
+                <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-sm" onClick={() => setShowModal(false)}>
                     {/* 모달창 */}
                     <div className="w-4/6 h-4/5 bg-[#65726a] rounded-sm bg-opacity-30">
-                        <div className=" h-fit w-fit">
+                        <div className="h-fit w-fit">
                             {/* 모달-콘텐츠 */}
                             <div className="flex">
                                 {/* 모달-이미지 */}
@@ -340,7 +344,7 @@ const RCMND = () => {
                             <div className="px-6 pb-3 h-60">
                                 <div className="h-full">
                                     <div className="pl-2">
-                                        <p className="text-xs">2차는 어디로 가지?</p>
+                                        <p className="text-xs">2차는 어디 가지?</p>
                                         <p className="text-base font-bold">메뉴가 겹치지 않는 다른 공간들이에요!</p>
                                     </div>
 

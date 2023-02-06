@@ -26,18 +26,17 @@ const Header = () => {
 
 
     return (
-        <div>
+        <div className="h-screen">
             {/* <video src="./video/coffee_shop.mp4" loop autoPlay muted /> */}
             <div className="flex p-3 space-x-8 text-xs">
                 {visitGithub(teamInfo)}
             </div>
             <div className="grid pt-24 place-content-center">
-                <div>
-                    <img className="translate-x-12 h-3/6" src="./IMG/seasam_logo.png" alt="saesam logo" />
+                <div className="h-fit">
+                    <img className="translate-x-12 h-80" src="./IMG/seasam_logo.png" alt="saesam logo" />
                     <img className="h-32 pt-4 -translate-x-6" src="./IMG/saesam_text_logo.png" alt="saesam text logo" />
-                    <p className="pt-2 text-xl font-medium tracking-widest text-center -translate-x-9">
-                        {/* todo : 각 폰트사이 여백 더 크게 */}
-                        새삼스러울, 서울
+                    <p className="flex justify-center -translate-x-6 h-fit">
+                        <img className="h-20" src="/IMG/newSeoul.png" alt="새삼스러울, 서울" />
                     </p>
                 </div>
             </div>
