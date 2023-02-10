@@ -31,7 +31,6 @@ const Check = () => {
     let [th, setTh] = useState<number>(0);
     const [category, setCategory] = useState<CategoryType>(firstCategory);
 
-
     // 체크박스 컴포넌트
     const keywordCheckBox = (category: CategoryType): ReactNode => {
 
@@ -40,16 +39,29 @@ const Check = () => {
         // 키워드 리스트(value)
         let values: string[] = category[key];
 
+        if (th === 2) {
+
+        }
 
         // 키워드 리스트 돌려서 체크박스 생성 
         const checkBox =
             values.map((value) => {
                 return (//체크박스 디자인 바꾸기
                     <>
-                        <p className="p-2"><label><input type="checkbox" id={value} value={value} name={key} onChange={(e) => singleCheck(e.target.checked, e.target.value)}
+                        <p className="p"><label><input type="checkbox" id={value} value={value} name={key} onChange={(e) => singleCheck(e.target.checked, e.target.value)}
                             checked={checkedKeywordList.includes(value) ? true : false} />{value}</label>
                         </p>
                     </>
+
+                    // <>
+                    //     <div className="p">
+                    //         <input type="checkbox" id={value} value={value} name={key} onChange={(e) => singleCheck(e.target.checked, e.target.value)}
+                    //             checked={checkedKeywordList.includes(value) ? true : false} />
+                    //         {value}
+                    //     </div>
+                    //     <label htmlFor={value}><img src={e.target.checked ? "/IMG/checkBox_true" : "/IMG/checkBox_false"} alt="" /></label>
+
+                    // </>
                 )
             })
 
@@ -78,7 +90,7 @@ const Check = () => {
         }
     }
 
-    // 체크박스 하나하나 체크되면
+    // 체크박스 하나하나 체크되면 //아 여기다 이미지 넣어버리면 되겟다
     const singleCheck = (checked: boolean, id: string) => {
         if (checked) {
             setCheckedKeywordList([...checkedKeywordList, id])
@@ -111,18 +123,18 @@ const Check = () => {
         };
 
         return (
-            <>
+            <div>
                 <p className="pl-8 text-sm font-medium text-gray-500 w-fit hover:-translate-y-1 hover:underline">
                     <label>
                         <span>Next</span>
                         <button type="button" name="nextButton" className="translate-y-2" onClick={(e) => nextClickHandler(e)}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#39AE68" className="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#39AE68" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                             </svg>
                         </button>
                     </label>
                 </p>
-            </>
+            </div>
         )
     }
 
@@ -165,7 +177,7 @@ const Check = () => {
 
             //3번째 카테고리면 멈춰야돼서 이전까지만 돌려돌려
             if (th < 3) {
-                setTh(th + 1)
+                setTh(th - 1)
                 setCategory(categorys[th])
             }
 
@@ -186,8 +198,8 @@ const Check = () => {
                 <p className="pr-8 text-sm font-medium text-gray-500 w-fit hover:-translate-y-1 hover:underline">
                     <label>
                         <button type="button" id="back" name="backButton" className="translate-y-2" onClick={(e) => backClickHandler(e)}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#39AE68" className="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#39AE68" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                             </svg>
                         </button>
                         <span>Back</span>

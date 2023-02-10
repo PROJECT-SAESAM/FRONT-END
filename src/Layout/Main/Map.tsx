@@ -52,7 +52,7 @@ const Map = () => {
 
         const showLocal = localList.map((local) => {
             return (
-                <div className='text-lg font-medium hover:border-b-4 hover:underline'>
+                <div className='text-xl font-semibold hover:border-b-4 hover:underline '>
                     <span>{local}</span>
                 </div>
             )
@@ -67,7 +67,7 @@ const Map = () => {
         const hashTags: string[] = ['콘크리트', '폐공장', '레트로', '부르클린', '붉은벽돌', '수제화', '건축', '아무말', '아무말2', '아무말3', '아무말4', '아무말5'];
 
         return (
-            <div className='grid grid-cols-3'>
+            <div className='grid grid-cols-3 h-full'>
                 <span>{hashTags[0]}</span>
                 <span>{hashTags[1]}</span>
                 <span>{hashTags[2]}</span>
@@ -99,7 +99,7 @@ const Map = () => {
 
                 <div className='flex p-10 place-content-between h-fit '>
                     <img className='w-1/2 p-5' src="/IMG/map_3.png" alt="서울 지도" />
-                    <div className='w-1/2 p-5'>
+                    <div className='w-1/2 p-10'>
                         {localTag()}
                     </div>
                 </div>

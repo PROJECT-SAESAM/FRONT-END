@@ -5,16 +5,13 @@ const Header = () => {
     //깃허브 baseURL
     const baseURL: string = "https://github.com/";
     //팀원들 깃헙 아이디
-    const teamInfo: string[] = ["jayarnim", "kim-garam", "erua0919", "410am"];
-
-    //깃허브+아이디=깃허브 주소
-    const githubInfo: string[] = teamInfo.map(teamInfo => `${baseURL}${teamInfo}`);
+    const teamInfo: string[] = ["jayarnim", "kim-garam", "410am"];
 
     const visitGithub = (arr: string[]): ReactNode => {
         const github =
             arr.map((git_id) => {
                 return (
-                    <a className="flex github_link" href={`${baseURL}${git_id}`} >
+                    <a className="flex github_link" href={`${baseURL}${git_id}`} key={git_id} >
                         <img className="w-4 h-4 mr-2" src="./IMG/kisspng-github-computer-icons-clip-art-gits-5b4d20ab4d91f7.4085637115317812913177.png" alt="github icon" />
                         {git_id}
                     </a>
@@ -22,8 +19,6 @@ const Header = () => {
             })
         return github
     }
-
-
 
     return (
         <div className="h-screen">
@@ -43,4 +38,5 @@ const Header = () => {
         </div>
     )
 };
+
 export default Header;

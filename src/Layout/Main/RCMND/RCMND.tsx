@@ -1,6 +1,6 @@
 import Check from "./Check";
 import { ReactNode } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React, { useRef } from "react";
 import axios from "axios";
 import qs from "qs";
@@ -14,6 +14,9 @@ import { stringify } from "querystring";
 
 // DB에서 반환된 결과 오른쪽 화면에 띄우기 
 const RCMND = () => {
+
+    // https://velog.io/@chaeshee0908/React-Axios%EB%A1%9C-User-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B0%9B%EC%95%84-%EC%B6%9C%EB%A0%A5%ED%95%98%EA%B8%B0
+    // 참고사이트
 
     // const dummy = {
     //     "data": {
@@ -41,24 +44,20 @@ const RCMND = () => {
     //     }
     // }
 
-
-    // // const showContents = () => {
-
-    // const contents = dummy.data
-
-    // // var json = { text: 'abcd', number: 1234, desc: 'efg' };
-    // // for (var key in json) {
-    // //     console.log('키 : ' + key + ', 값 : ' + json[key])
-    // // }
-
-    // for (const key in contents) {
-    //     console.log('키 : ' + key + ', 값 :')
-    //     console.log(contents[0]["이름"])
-    // }
+    const Users = () => {
+        useEffect(() => {
+            axios.get('https://jsonplaceholder.typicode.com/users')
+                .then(response => {
+                    console.log(response);
+                });
+        }, []);
+        return (
+            <h1>Users</h1>
+        );
+    }
 
 
-    // // }
-
+    const [resultImg, setResultImg] = useState<string>('/IMG/dumdum/21797_10632_1745.jpg');
 
     // 이미지 띄우는 부분 
     const showRCMND = (): ReactNode => {
@@ -79,44 +78,40 @@ const RCMND = () => {
         const cafeIMG14 = "/IMG/dumdum/images (8).jpeg";
         const cafeIMG15 = "/IMG/dumdum/images (9).jpeg";
 
-        const listIMGs = [cafeIMG1, cafeIMG2, cafeIMG3];
-        // const [IMG, setIMG] = useState<>(cafeIMG1);
+        // const num = 1;
+        // console.log(`cafe${num}`);
 
-        return (
-            // 이전 슬라이딩 버튼
-            <div className="flex w-full pl-4">
-                <div className="flex content-center pr-5">
-                    <button type="button" name="backPlaceButton" className="place-self-center hover:w-11/12 h-fit">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#A29B9B" className="w-full h-16 p-1">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                        </svg>
-                    </button>
-                </div>
-                {/* 결과값 공간들*/}
-                <div className="container grid grid-cols-5 grid-rows-3 gap-3 pt-2 w-fit">
+        // imgs.map((i) => {
+        //     // console.log(i)
+        //     setResultImg(i);
+        // })
+        const imgs = [cafeIMG1, cafeIMG2, cafeIMG3, cafeIMG4, cafeIMG5, cafeIMG6, cafeIMG7, cafeIMG8, cafeIMG9, cafeIMG10, cafeIMG11, cafeIMG12, cafeIMG13, cafeIMG14, cafeIMG15];
+
+
+        const result =
+            imgs.map((img) => {
+                return (//체크박스 디자인 바꾸기
+
                     <label>
                         {/* 클릭하면 모달창 */}
                         <button onClick={() => setShowModal(true)}>
-                            <li className="relative list-none w-fit h-fit">
-                                <img className="shadow-xl w-44 h-44" src={cafeIMG1} alt="성수 카페" />
+                            <div className="relative list-none w-fit h-fit">
+                                <img className="shadow-xl w-44 h-44" src={img} alt="성수 카페" />
                                 <div className="absolute flex justify-center -translate-y-full bg-opacity-0 opacity-0 place-items-center w-44 h-44 hover:opacity-100 hover:bg-opacity-60 bg-neutral-400">
                                     <p className="text-2xl font-semibold shadow-2xl via-black w-fit h-fit">대림창고</p>
                                 </div>
-                            </li>
+                            </div>
                         </button>
                     </label>
-                </div>
-                {/* 다음 슬라이딩 버튼 */}
-                <div className="flex content-center pl-5">
-                    <button type="button" name="nextPlaceButton" className="place-self-center hover:w-11/12 h-fit">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#A29B9B" className="w-full h-16 p-1">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        )
+
+                )
+            })
+
+        return result
+
     }
+
+
 
     const [showModal, setShowModal] = useState<boolean>(false);
     const outSection = useRef<HTMLInputElement>(null);
@@ -137,9 +132,9 @@ const RCMND = () => {
         return (
             <div>
                 {/* 모달 배경 */}
-                <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-sm" onClick={() => setShowModal(false)}>
+                <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-sm">
                     {/* 모달창 */}
-                    <div className="w-4/6 h-4/5 bg-[#65726a] rounded-sm bg-opacity-30">
+                    <div className="w-4/6 h-4/5 bg-[#32503b] rounded-sm bg-opacity-90 text-stone-50 ">
                         <div className="h-fit w-fit">
                             {/* 모달-콘텐츠 */}
                             <div className="flex">
@@ -157,21 +152,21 @@ const RCMND = () => {
                                     {/* 모달-텍스트 */}
                                     <div className="flex items-end h-64">
                                         <div className="text-sm text-left pr-7 info">
-                                            <p className="pb-5 font-bold title">다이닝 목로 성수점</p>
+                                            <p className="pb-5 font-bold title tracking-widest text-lg">다이닝 목로 성수점</p>
                                             <p>
-                                                <p className="pb-7 intro">넉넉한 곱창전골과 가마보꼬 어묵탕이 가장 맛있는 퓨전 다이닝.
+                                                <p className="pb-7 intro text-sm tracking-widest font-thin leading-normal scroll-mb-0 ">넉넉한 곱창전골과 가마보꼬 어묵탕이 가장 맛있는 퓨전 다이닝.
                                                     수제 가지튀김과 닭다리살을 튀긴 치킨난반도 곁들이기 좋습니다.
                                                     메뉴와 가장 잘 어울리는 술은 화요25, 삿포로 생맥주입니다.
 
                                                     '목로(木爐)'란 좁고 긴 나무판자로 만든 상으로, 'Bar'를 한글로 표현한 말입니다. Edward Hopper의 '밤을 지새우는 사람들'을 모티브로 한 퓨전 다이닝을 제안합니다. 맛있는 음식과 술, 친절한 스텝들이 가볍게 이야기를 건네기도 하는 단정한 술집입니다.</p>
                                                 <p className="flex mainMenu place-content-between">
                                                     <div>
-                                                        <li>
+                                                        <div>
                                                             <span>목로 곱창전골 | 32000원</span>
-                                                        </li>
-                                                        <li>
+                                                        </div>
+                                                        <div>
                                                             <span>목로 수제 가지튀김 | 19000원</span>
-                                                        </li>
+                                                        </div>
                                                     </div>
 
                                                     <a className="링크버튼 w-fit h-fit place-items-center grid gap-1" href="https://map.naver.com/v5/search/%EB%AA%A9%EB%A1%9C%20%EC%84%B1%EC%88%98/place/1063191542?c=15,0,0,0,dh&placePath=%3Fentry%253Dbmp">
@@ -192,15 +187,16 @@ const RCMND = () => {
                                         <p className="text-xs">2차는 어디 가지?</p>
                                         <p className="text-base font-bold">메뉴가 겹치지 않는 다른 공간들이에요!</p>
                                     </div>
-
+                                    {/* showPlaceInfo */}
                                     {/* 카드들 */}
                                     <div className="flex">
-                                        <div className="h-44">
+                                        {/* id 같이 줘서 내용 바꿔야될듯 */}
+                                        <button className="h-44" onClick={() => showPlaceInfo(true)}>
                                             <div className="h-full overflow-hidden">
                                                 <img className="w-40 h-40 p-2" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA1MDhfNDUg%2FMDAxNTI1NzE4OTYwMjky.nyEEwmyzoil45uhwuK_KFH3KDfIXu3Da1DcPNSldTk0g.GJe_XnVEnbP3KrgTvAG_e-pn3PCfBSeMDEDvMj8RESwg.JPEG.lilyeun1%2F1525717070304.jpg" alt="" />
                                                 <p className="w-40 text-xs font-semibold text-center">어메이징 브루잉 컴퍼니</p>
                                             </div>
-                                        </div>
+                                        </button>
 
                                         <div className="h-44">
                                             <div className="h-full overflow-hidden">
@@ -246,18 +242,42 @@ const RCMND = () => {
     }
 
 
-
     return (
-        <div className="h-screen">
-            <div className="flex">
-                <div className="flex w-fit"><Check /></div>
-                <div className="flex justify-center w-full py-6 h-fit">{showRCMND()}</div>
-                <div className="overflow-auto">
-                    {showPlaceInfo(showModal)}
+        <div>
+            <div className="h-screen flex place-items-end">
+                {/* <div><p>{여기에 checkedList}</p></div> */}
+                <div className="flex 체크박스랑 결과 부분">
+                    <div className="flex w-fit"><Check /></div>
+                    <div className="flex 가게와 가게정보 셋뚜쎗뚜">
+                        <div className="flex justify-center w-full">
+                            {/* 슬라이딩 버튼들 빼기 */}
+                            <div className="flex w-full pl-4">
+                                {/* 이전 슬라이딩 버튼 */}
+                                <div className="flex content-center pr-5">
+                                    <button type="button" name="backPlaceButton" className="place-self-center hover:w-11/12 h-fit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#A29B9B" className="w-full h-16 p-1">
+                                            <path stroke="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div className="container grid grid-cols-5 grid-rows-3 gap-3 pt-2 w-fit">{showRCMND()}</div>
+                                {/* 다음 슬라이딩 버튼 */}
+                                <div className="flex content-center pl-5">
+                                    <button type="button" name="nextPlaceButton" className="place-self-center hover:w-11/12 h-fit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#A29B9B" className="w-full h-16 p-1">
+                                            <path stroke="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="overflow-auto">
+                                {showPlaceInfo(showModal)}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     )
 };
 
@@ -265,73 +285,3 @@ const RCMND = () => {
 export default RCMND;
 
 
-        // // async await 를 사용한 깃헙의 프로필 사진을 보여주는 코드 예시
-        // async function showAvatar() {
-
-        //     // JSON 읽기
-        //     let response = await fetch('/article/promise-chaining/user.json');
-        //     let user = await response.json();
-
-        //     // github 사용자 정보 읽기
-        //     let githubResponse = await fetch(`https://api.github.com/users/${user.name}`);
-        //     let githubUser = await githubResponse.json();
-
-        //     // 아바타 보여주기
-        //     let img = document.createElement('img');
-        //     img.src = githubUser.avatar_url;
-        //     img.className = "promise-avatar-example";
-        //     document.body.append(img);
-
-        //     // 3초 대기
-        //     await new Promise((resolve, reject) => setTimeout(resolve, 3000));
-
-        //     img.remove();
-
-        //     return githubUser;
-        // }
-
-// showAvatar();
-
-
- // const url = '백엔드에서 준 api'
-
-    // // 키워드리스트 받아오는 axios를 통해서 페이지 들어오자 마자 요청 받아서 state에 저장
-    // const GetKeyword = async (userid) => {
-    //     await axios.get({url}, {
-    //         params: {
-    //             username: userid,
-    //         },
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             "Authorization": "Bearer " + sessionStorage.getItem('access_token')
-
-    //         }
-    //     }).then(res => {
-    //         const data = res.data // 이게 json형식으로 오는거
-    //         setPlaceType(data.firstType);
-    //         setMoodType(data.secondType);
-    //     }).catch(error => {
-    //         console.log(error, ' GetBasketItem 에러');
-    //     })
-    // }
-
-
-    // let response = await fetch('/article/promise-chaining/user.json');
-
-    // interface CovidSummaryResponse {
-    //     Countries: any[];
-    //     // {Country: "Afghanistan", CountryCode: "AF", Slug: "afghanistan", NewConfirmed: 241}
-    //     Date: string;
-    //     Global: any;
-    //     Message: string;
-    // }
-
-    // // api axios response 정의
-    // function fetchCovidSummary(): Promise<AxiosResponse<CovidSummaryResponse>> {
-    //     const url = "https://api.covid19api.com/summary";
-
-    //     return axios.get(url);
-    // }
-
-    // // 위 response interface 정의로 타입 추론
-    // fetchCovidSummary().then(res => res.data.Message);
