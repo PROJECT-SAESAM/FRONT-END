@@ -61,31 +61,54 @@ const Map = () => {
         return showLocal;
     }
 
-    const localTag = (): ReactNode => {
-
-        // 성수 버전 해시태그 더미
-        const hashTags: string[] = ['콘크리트', '폐공장', '레트로', '부르클린', '붉은벽돌', '수제화', '건축', '아무말', '아무말2', '아무말3', '아무말4', '아무말5'];
-
+    const showMapButton = (): ReactNode => {
         return (
-            <div className='grid grid-cols-3 h-full'>
-                <span>{hashTags[0]}</span>
-                <span>{hashTags[1]}</span>
-                <span>{hashTags[2]}</span>
-                <span>{hashTags[3]}</span>
-                <span>{hashTags[4]}</span>
-                <span>{hashTags[5]}</span>
-                <span>{hashTags[6]}</span>
-                <span>{hashTags[7]}</span>
-                <span>{hashTags[8]}</span>
-                <span>{hashTags[10]}</span>
-                <span>{hashTags[11]}</span>
-                <span>{hashTags[12]}</span>
-                <span>{hashTags[13]}</span>
-                <span>{hashTags[14]}</span>
-                <span>{hashTags[15]}</span>
+            // <div className="relative w-fit h-fit">
+            //                     <img className="shadow-xl w-44 h-44" src={img} alt="성수 카페" />
+            //                     <div className="absolute flex justify-center -translate-y-full bg-opacity-0 opacity-0 place-items-center w-44 h-44 hover:opacity-100 hover:bg-opacity-60 bg-neutral-400">
+            //                         <p className="text-2xl font-semibold shadow-2xl via-black w-fit h-fit">대림창고</p>
+            //                     </div>
+            //                 </div>
+            <div>
+                <label className='absolute h-fit w-fit -translate-y-56 translate-x-96'>
+                    <div className='text-slate-100 bg-lime-600 hover:bg-lime-700 h-fit w-fit p-0.5 rounded-lg bg-opacity-80'>
+                        <button className='font-semibold w-fit opacity-100'>성수</button>
+                    </div>
+                </label >
+                <label className=' absolute h-fit w-fit translate-y-32'>
+                    <div className='text-slate-100 bg-lime-600 hover:bg-lime-700 h-fit w-fit p-0.5 rounded-lg bg-opacity-80'>
+                        <button className='font-semibold w-fit opacity-100'>홍대</button>
+                    </div>
+                </label >
             </div>
         )
     }
+
+    // const localTag = (): ReactNode => {
+
+    //     // 성수 버전 해시태그 더미
+    //     const hashTags: string[] = ['콘크리트', '폐공장', '레트로', '부르클린', '붉은벽돌', '수제화', '건축', '아무말', '아무말2', '아무말3', '아무말4', '아무말5'];
+
+    //     return (
+    //         <div className='grid grid-cols-3 h-full'>
+    //             <span>{hashTags[0]}</span>
+    //             <span>{hashTags[1]}</span>
+    //             <span>{hashTags[2]}</span>
+    //             <span>{hashTags[3]}</span>
+    //             <span>{hashTags[4]}</span>
+    //             <span>{hashTags[5]}</span>
+    //             <span>{hashTags[6]}</span>
+    //             <span>{hashTags[7]}</span>
+    //             <span>{hashTags[8]}</span>
+    //             <span>{hashTags[10]}</span>
+    //             <span>{hashTags[11]}</span>
+    //             <span>{hashTags[12]}</span>
+    //             <span>{hashTags[13]}</span>
+    //             <span>{hashTags[14]}</span>
+    //             <span>{hashTags[15]}</span>
+    //         </div>
+    //     )
+    // }
 
 
     return (
@@ -96,15 +119,23 @@ const Map = () => {
                     {localButton()}
                 </div>
                 {/* 지도 이미지 */}
-
                 <div className='flex p-10 place-content-between h-fit '>
-                    <img className='w-1/2 p-5' src="/IMG/map_3.png" alt="서울 지도" />
-                    <div className='w-1/2 p-10'>
-                        {localTag()}
+                    <div className='w-1/2 relative'>
+                        <div className='flex justify-center h-full w-full pt-5'>
+                            <img src="/IMG/map_3.png" alt="서울 지도" />
+                        </div>
+                        <div>
+                            {showMapButton()}
+                        </div>
+                    </div>
+                    <div className='w-1/2 p-109'>
+                        <div className='pl-16'>
+                            <img src="/IMG/sungsooTags.png" alt="성수동 해시태그" />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 
 }
