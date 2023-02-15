@@ -1,0 +1,14 @@
+.scrollbar{
+  overflow:overlay;
+}
+.scrollbar::-webkit-scrollbar {
+    width: 0.5vw;
+    
+}
+.scrollbar::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: hsla(0, 0%, 60%, 0.29);
+}

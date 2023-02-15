@@ -5,29 +5,29 @@ const Footer = () => {
     // const [fruit, setFruit] = useState("");
     // const url = "http://127.0.0.1:8000/fruits"
 
-
+    // [#316e4a]
     return (
         <div className='h-fit' >
-            <div className="font-serif bg-green-700">
-                <p className=" flex justify-center p-16 pb-12 text-7xl font-thin text-[#eae7de]">
-                    새삼스러울, 서울
+            <div className="font-serif bg-[#316e4a] opacity-80">
+                <p className=" flex justify-center p-5 pb-12 text-7xl font-thin text-[#eae7de] font-serif">
+                    <img src="/IMG/새삼스러울, 서울.png" alt="새삼스러울, 서울" className="h-" />
                 </p>
                 <div className="flex place-content-between">
-                    <div className="flex text-[#eae7de] pb-12 pt-10">
+                    <div className="flex text-[#eae7de] pb-12 pt-10 font-sans">
                         <div className="pl-12">
                             <p className="p-3">Product Manager</p>
                             <p className="p-3">Data Analyst</p>
                         </div>
-                        <div className="pt-1 pl-4 font-medium">
+                        <div className="pt-1 pl-4 font-medium font-sans">
                             <p className="p-3">왕재준</p>
                             <p className="p-3">김가람</p>
                         </div>
-                        <div className="pl-8">
+                        <div className="pl-8 font-sans">
                             <p className="p-3">Frontend Engineer</p>
                             <p className="p-3">Backend Enginner</p>
                             <p className="p-3">Special Thanks to</p>
                         </div>
-                        <div className="pt-1 pl-4 font-medium">
+                        <div className="pt-1 pl-4 font-medium font-sans">
                             <p className="p-3">김효정</p>
                             <p className="p-3">왕재준</p>
                             <div className="p-3">
