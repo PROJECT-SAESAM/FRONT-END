@@ -49,65 +49,79 @@ const Check = (
         // 키워드 리스트(value)
         let values: string[] = category[key];
 
-        // 키워드 리스트 돌려서 체크박스 생성 
-        const checkBox =
+        // 마지막 카테고리까지 다 선택했을 경우 돌아가기 버튼만 반환
+        const noMoreCategory: ReactNode = (
+
+            <div className="translate-x-16 translate-y-28 hover:translate-x-14">
+                <label>
+                    <button className="p-4 rounded-md" onClick={() => (
+                        setRerender(true),
+                        setTh(0),
+                        showRCMND,
+                        setFinalList({})
+                    )}>
+                        <img className="flex translate-x-2" src="/IMG/go-back.png" alt="돌아가기" />
+                        <div className="pt-2 text-xs">
+                            다른 선택
+                        </div>
+                    </button>
+                </label>
+            </div>
+        )
+
+        // 키워드 리스트 돌려서 체크박스 생성
+        const checkItems: ReactNode = (
             values.map((value) => {
+                // alert("이게 안되는거")
+                return (<>
+                    <div>
+                        <label><input
+                            className="appearance-none"
+                            type="checkbox" id={value} value={value} name={key} onChange={(e) => singleCheck(e.target.checked, e.target.value)}
+                            checked={checkedKeywordList.includes(value) ? true : false} />
+                            <div className={`flex font-sans font-semibold ${value.length > 5 ? "text-sm" : "text-base"}`}>
+                                <img className="h-5" src={checkedKeywordList.includes(value) ? " /IMG/checkBoxTrue.png" : "/IMG/checkBoxFalse.png"} alt="체크박스" />
+                                {value}
+                            </div>
+                        </label>
+                    </div>
 
-                if (th === 4) {
-                    return (
-                        <div className="translate-x-16 translate-y-28 hover:translate-x-14">
-                            <label>
-                                <button className="p-4 rounded-md" onClick={() => (
-                                    setRerender(true),
-                                    setTh(0),
-                                    showRCMND(),
-                                    setFinalList({})
-                                )}>
-                                    <img className="flex translate-x-2" src="/IMG/go-back.png" alt="돌아가기" />
-                                    <div className="pt-2 text-xs">
-                                        다른 선택
-                                    </div>
-                                </button>
-                            </label>
-                        </div>
-                    )
-                } else {
-                    return (<>
-                        <div>
-                            <label><input
-                                className="appearance-none"
-                                type="checkbox" id={value} value={value} name={key} onChange={(e) => singleCheck(e.target.checked, e.target.value)}
-                                checked={checkedKeywordList.includes(value) ? true : false} />
-                                <div className={`flex font-sans font-semibold ${value.length > 5 ? "text-sm" : "text-base"}`}>
-                                    <img className="h-5" src={checkedKeywordList.includes(value) ? " /IMG/checkBoxTrue.png" : "/IMG/checkBoxFalse.png"} alt="체크박스" />
-                                    {value}
-                                </div>
-                            </label>
-                        </div>
-
-                    </>)
-                }
-
+                </>)
             })
+        )
 
-        const wholeCheck = (
+        //전체선택 버튼
+        const wholeCheck: ReactNode = (
             < label >
                 <input className="appearance-none" type="checkbox" onChange={(e) => allCheck(e.target.checked, key)} checked={checkedKeywordList.length === values.length ? true : false} />
-                <div className="flex pr-1 font-mono font-semibold">
+                <div className="flex pr-1 font-sans font-semibold">
                     <img className="h-5" src={checkedKeywordList.length === values.length ? "/IMG/checkBoxTrue.png" : "/IMG/checkBoxFalse.png"} alt="이전과 다음 버튼" />
                     전체선택
                 </div>
             </label >
         );
 
-        console.log(th)
+        const checkResult = () => {
+            if (th !== 4) {
+                return (
+                    <div>
+                        <div className={`w-full grid h-fit gap-x-5 p-2 ${th === 3 ? "grid-cols-2 grid-flow-row " : "grid-rows-none"}`}>
+                            {wholeCheck}
+                            {checkItems}
+                        </div>
+                    </div>
+                )
+            } else {
+                return (<div>
+                    {noMoreCategory}
+                </div >)
+
+            }
+        }
+
         return (
             <>
-                {/* 이거 조건부 스타일링 왜 안먹냐 */}
-                <div className={`w-full grid h-fit gap-x-5 p-2 ${th === 3 ? "grid-cols-2 grid-flow-row " : "grid-rows-none"}`}>
-                    {th !== 4 ? wholeCheck : null}
-                    {checkBox}
-                </div>
+                {checkResult()}
             </>
         );
 
@@ -160,9 +174,7 @@ const Check = (
                 setFinalList((finalList) => { return { ...finalList, [keyOfCategory]: checkedKeywordList } })
 
                 //저장하고나면 빈 배열로 초기화
-                console.log(checkedKeywordList)
                 setCheckedKeywordList([]);
-                console.log(finalList)
             }
         };
 

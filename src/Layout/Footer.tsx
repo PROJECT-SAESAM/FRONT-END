@@ -8,9 +8,10 @@ const Footer = () => {
     // [#316e4a]
     return (
         <div className='h-fit' >
-            <div className="font-serif bg-[#316e4a] opacity-80">
-                <p className=" flex justify-center p-5 pb-12 text-7xl font-thin text-[#eae7de] font-serif">
-                    <img src="/IMG/새삼스러울, 서울.png" alt="새삼스러울, 서울" className="h-" />
+            <div className="font-serif bg-[#316e4a] opacity-90">
+                <p className=" flex justify-center pb-5 text-6xl font-thin text-[#eae7de] pt-16 font-serif">
+                    {/* <img src="/IMG/새삼스러울, 서울.png" alt="새삼스러울, 서울" className="h-" /> */}
+                    새삼스러울, 서울
                 </p>
                 <div className="flex place-content-between">
                     <div className="flex text-[#eae7de] pb-12 pt-10 font-sans">
@@ -18,7 +19,7 @@ const Footer = () => {
                             <p className="p-3">Product Manager</p>
                             <p className="p-3">Data Analyst</p>
                         </div>
-                        <div className="pt-1 pl-4 font-medium font-sans">
+                        <div className="pt-1 pl-4 font-sans font-medium">
                             <p className="p-3">왕재준</p>
                             <p className="p-3">김가람</p>
                         </div>
@@ -27,7 +28,7 @@ const Footer = () => {
                             <p className="p-3">Backend Enginner</p>
                             <p className="p-3">Special Thanks to</p>
                         </div>
-                        <div className="pt-1 pl-4 font-medium font-sans">
+                        <div className="pt-1 pl-4 font-sans font-medium">
                             <p className="p-3">김효정</p>
                             <p className="p-3">왕재준</p>
                             <div className="p-3">

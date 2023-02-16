@@ -13,7 +13,7 @@ export interface propsToCheck {
     isChecked: Dispatch<SetStateAction<string[]>>;
     th: number;
     setTh: Dispatch<SetStateAction<number>>;
-    showRCMND: () => ReactNode;
+    showRCMND: ReactNode;
     rerender: boolean;
     setRerender: Dispatch<SetStateAction<boolean>>;
 }
@@ -39,6 +39,7 @@ export interface CategoryType {
 };
 
 
+
 const RCMND = () => {
 
     const [place, setPlace] = useState<wholePlaceType[]>([]);
@@ -53,27 +54,17 @@ const RCMND = () => {
     // 현재 카테고리
     const [th, setTh] = useState<number>(0);
     const [rerender, setRerender] = useState<boolean>(false);
-
-    //모든 장소
-    useEffect(() => {
-        function allPlace() {
-            console.log("다시 시작됏따")
-            axios.get('http://127.0.0.1:8000/성수동')
-                .then(response => {
-                    const wholeObj = JSON.parse(response.data);
-                    setPlace(wholeObj.slice(0, 51));
-                })
-        };
-        allPlace();
-    }, [rerender]);
+    const [recoItem, setRecoItem] = useState<Object>({});
 
 
-    // 그리드 부분 
+
     const showRCMND = (): ReactNode => {
 
-        const result =
-            place.map((div) => {
-                return (//체크박스 디자인 바꾸기
+        // 그리드 부분 
+        const gridBoxOne =
+            // <div className="grid grid-flow-col grid-rows-3 gap-2 pt-2 overflow-y-auto mainScroll h-fit">
+            place.slice(0, 12).map((div) => {
+                return (
                     <label>
                         {/* 클릭하면 모달창 */}
                         <button onClick={(e) => {
@@ -81,34 +72,140 @@ const RCMND = () => {
                             setShowModal(true);
                         }}>
                             <div className="relative w-max">
-                                <img className="shadow-xl h-44 w-44" src={div.image_place} alt="공간 사진" />
+                                <img className="object-cover shadow-xl h-44 w-44" src={div.image_place} alt="공간 사진" />
                                 <div className="absolute flex justify-center -translate-y-full bg-opacity-0 opacity-0 place-items-center w-44 h-44 hover:opacity-100 hover:bg-opacity-60 bg-neutral-400">
                                     <div className="text-2xl font-semibold shadow-2xl via-black w-fit h-fit">{div.title}</div>
                                 </div>
                             </div>
                         </button>
                     </label>
+                    // </div>
                 )
             })
 
-        return result
+        const gridBoxTwo =
+            // <div className="grid grid-flow-col grid-rows-3 gap-2 pt-2 overflow-y-auto mainScroll h-fit">
+            place.slice(13, 25).map((div) => {
+                return (
+                    <label>
+                        {/* 클릭하면 모달창 */}
+                        <button onClick={(e) => {
+                            setClickedID(div.id);
+                            setShowModal(true);
+                        }}>
+                            <div className="relative w-max">
+                                <img className="object-cover shadow-xl h-44 w-44" src={div.image_place} alt="공간 사진" />
+                                <div className="absolute flex justify-center -translate-y-full bg-opacity-0 opacity-0 place-items-center w-44 h-44 hover:opacity-100 hover:bg-opacity-60 bg-neutral-400">
+                                    <div className="text-2xl font-semibold shadow-2xl via-black w-fit h-fit">{div.title}</div>
+                                </div>
+                            </div>
+                        </button>
+                    </label>
+                    // </div>
+                )
+            })
+
+        const gridBoxThree =
+            // <div className="grid grid-flow-col grid-rows-3 gap-2 pt-2 overflow-y-auto mainScroll h-fit">
+            place.slice(26, 38).map((div) => {
+                return (
+                    <label>
+                        {/* 클릭하면 모달창 */}
+                        <button onClick={(e) => {
+                            setClickedID(div.id);
+                            setShowModal(true);
+                        }}>
+                            <div className="relative w-max">
+                                <img className="object-cover shadow-xl h-44 w-44" src={div.image_place} alt="공간 사진" />
+                                <div className="absolute flex justify-center -translate-y-full bg-opacity-0 opacity-0 place-items-center w-44 h-44 hover:opacity-100 hover:bg-opacity-60 bg-neutral-400">
+                                    <div className="text-2xl font-semibold shadow-2xl via-black w-fit h-fit">{div.title}</div>
+                                </div>
+                            </div>
+                        </button>
+                    </label>
+                    // </iv>
+                )
+            })
+
+        const gridBoxes = [gridBoxOne, gridBoxTwo, gridBoxThree];
+
+        return gridBoxes
+
+        // // 그리드 부분 
+        // const result =
+        //     // <div className="grid grid-flow-col grid-rows-3 gap-2 pt-2 overflow-y-auto mainScroll h-fit">
+        //     place.map((div) => {
+        //         return (
+        //             <label>
+        //                 {/* 클릭하면 모달창 */}
+        //                 <button onClick={(e) => {
+        //                     setClickedID(div.id);
+        //                     setShowModal(true);
+        //                 }}>
+        //                     <div className="relative w-max">
+        //                         <img className="object-cover shadow-xl h-44 w-44" src={div.image_place} alt="공간 사진" />
+        //                         <div className="absolute flex justify-center -translate-y-full bg-opacity-0 opacity-0 place-items-center w-44 h-44 hover:opacity-100 hover:bg-opacity-60 bg-neutral-400">
+        //                             <div className="text-2xl font-semibold shadow-2xl via-black w-fit h-fit">{div.title}</div>
+        //                         </div>
+        //                     </div>
+        //                 </button>
+        //             </label>
+        //             // </div>
+        //         )
+        //     })
+        // return result
+
     }
 
-    //그리드 버튼 가로 스크롤
+
+    //모든 장소
+    useEffect(() => {
+        function allPlace() {
+            axios.get('http://127.0.0.1:8000/성수동')
+                .then(response => {
+                    const wholeObj = JSON.parse(response.data);
+                    // setPlace(wholeObj.slice(0, 51));
+                    setPlace(wholeObj)
+                })
+        };
+        allPlace();
+    }, [rerender]);
 
 
 
-    //그리드에서 선택된 장소
+    //그리드에서 선택된 장소 + 추가추천정보
     useEffect(() => {
         function placeByID() {
             axios.get(`http://127.0.0.1:8000/items/${clickedID}`)
                 .then(response => {
+                    //가게정보
                     const clickedObj = JSON.parse(response.data)[0];
                     setClickedPlace(clickedObj);
+                    //추가추천정보
+                    const wholeReco = JSON.parse(response.data)[1];
+                    const firstReco = JSON.parse(response.data)[1].first_reco;
+                    const secondReco = JSON.parse(response.data)[1].second_reco;
+                    const thirdReco = JSON.parse(response.data)[1].third_reco;
+                    setRecoItem(firstReco);
                 })
         }
         placeByID()
     }, [clickedID])
+
+    // console.log(Object.values(recoItem)[0])//0=id, 1=title, 2=img 
+
+    const recos = (Object.values(recoItem).slice(0, 6)).map((reco) => {
+        return (
+            <div>
+                <button className="h-44" id={reco[0]} onClick={(e) => { setShowModal(true); setClickedID(reco[0]); }}>
+                    <div className="h-full overflow-hidden">
+                        <img className="h-36 w-36" src={reco[2]} alt="음식 사진" />
+                        <div className="w-40 pt-3 text-xs font-semibold text-center">{reco[1]}</div>
+                    </div>
+                </button>
+            </div>
+        )
+    })
 
     //모달창을 보여줭
     const showPlaceInfo = (visible: boolean) => {
@@ -120,7 +217,7 @@ const RCMND = () => {
                 {/* 모달 배경 */}
                 <div className="fixed inset-0 flex items-center justify-center bg-opacity-30 backdrop-blur-sm">
                     {/* 모달창 */}
-                    <div className="fixed w-full h-full inset-x-52 inset-y-16">
+                    <div className="fixed w-full h-full overflow-hidden bg-fixed inset-x-52 inset-y-16">
                         <div className="w-3/4 h-5/6 bg-[#32503b] rounded-md bg-opacity-90 text-stone-50">
                             <div className="h-96">
                                 {/* 모달-콘텐츠 */}
@@ -180,43 +277,7 @@ const RCMND = () => {
                                         {/* 카드들 */}
                                         <div className="grid grid-cols-6">
                                             {/* id 같이 줘서 내용 바꿔야될듯 */}
-                                            <button className="h-44" onClick={() => setShowModal(true)}>
-                                                <div className="h-full overflow-hidden">
-                                                    <img className="h-36 w-36" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA1MDhfNDUg%2FMDAxNTI1NzE4OTYwMjky.nyEEwmyzoil45uhwuK_KFH3KDfIXu3Da1DcPNSldTk0g.GJe_XnVEnbP3KrgTvAG_e-pn3PCfBSeMDEDvMj8RESwg.JPEG.lilyeun1%2F1525717070304.jpg" alt="" />
-                                                    <div className="w-40 pt-3 text-xs font-semibold text-center">어메이징 브루잉 컴퍼니</div>
-                                                </div>
-                                            </button>
-
-                                            <div className="h-44">
-                                                <div className="h-full overflow-hidden">
-                                                    <img className="w-36 h-36 div-2" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA1MDhfNDUg%2FMDAxNTI1NzE4OTYwMjky.nyEEwmyzoil45uhwuK_KFH3KDfIXu3Da1DcPNSldTk0g.GJe_XnVEnbP3KrgTvAG_e-pn3PCfBSeMDEDvMj8RESwg.JPEG.lilyeun1%2F1525717070304.jpg" alt="" />
-                                                    <div className="w-40 pt-3 text-xs font-semibold text-center">어메이징 브루잉 컴퍼니</div>
-                                                </div>
-                                            </div>
-                                            <div className="h-44">
-                                                <div className="h-full overflow-hidden ">
-                                                    <img className="w-36 h-36 div-2" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA1MDhfNDUg%2FMDAxNTI1NzE4OTYwMjky.nyEEwmyzoil45uhwuK_KFH3KDfIXu3Da1DcPNSldTk0g.GJe_XnVEnbP3KrgTvAG_e-pn3PCfBSeMDEDvMj8RESwg.JPEG.lilyeun1%2F1525717070304.jpg" alt="" />
-                                                    <div className="w-40 pt-3 text-xs font-semibold text-center">어메이징 브루잉 컴퍼니</div>
-                                                </div>
-                                            </div>
-                                            <div className="h-44">
-                                                <div className="h-full overflow-hidden">
-                                                    <img className="w-36 h-36 div-2" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA1MDhfNDUg%2FMDAxNTI1NzE4OTYwMjky.nyEEwmyzoil45uhwuK_KFH3KDfIXu3Da1DcPNSldTk0g.GJe_XnVEnbP3KrgTvAG_e-pn3PCfBSeMDEDvMj8RESwg.JPEG.lilyeun1%2F1525717070304.jpg" alt="" />
-                                                    <div className="w-40 pt-3 text-xs font-semibold text-center">어메이징 브루잉 컴퍼니</div>
-                                                </div>
-                                            </div>
-                                            <div className="h-44">
-                                                <div className="h-full overflow-hidden">
-                                                    <img className="w-36 h-36 div-2" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA1MDhfNDUg%2FMDAxNTI1NzE4OTYwMjky.nyEEwmyzoil45uhwuK_KFH3KDfIXu3Da1DcPNSldTk0g.GJe_XnVEnbP3KrgTvAG_e-pn3PCfBSeMDEDvMj8RESwg.JPEG.lilyeun1%2F1525717070304.jpg" alt="" />
-                                                    <div className="w-40 pt-3 text-xs font-semibold text-center">어메이징 브루잉 컴퍼니</div>
-                                                </div>
-                                            </div>
-                                            <div className="h-44">
-                                                <div className="h-full overflow-hidden">
-                                                    <img className="w-36 h-36 div-2" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA1MDhfNDUg%2FMDAxNTI1NzE4OTYwMjky.nyEEwmyzoil45uhwuK_KFH3KDfIXu3Da1DcPNSldTk0g.GJe_XnVEnbP3KrgTvAG_e-pn3PCfBSeMDEDvMj8RESwg.JPEG.lilyeun1%2F1525717070304.jpg" alt="" />
-                                                    <div className="w-40 pt-3 text-xs font-semibold text-center">어메이징 브루잉 컴퍼니</div>
-                                                </div>
-                                            </div>
+                                            {recos}
                                         </div>
                                     </div>
                                 </div>
@@ -283,7 +344,7 @@ const RCMND = () => {
                         setCheckedKeywordList={setCheckedKeywordList}
                         finalList={finalList} setFinalList={setFinalList}
                         setTh={setTh} th={th}
-                        showRCMND={showRCMND}
+                        showRCMND={showRCMND()}
                         rerender={rerender}
                         setRerender={setRerender}
                     /></div>
@@ -292,22 +353,28 @@ const RCMND = () => {
                             {/* 슬라이딩 버튼들 빼기 */}
                             <div className="flex w-full pl-4">
                                 {/* 이전 슬라이딩 버튼 */}
-                                <div className="flex content-center pr-5">
+                                {/* <div className="flex content-center pr-5">
                                     <button type="button" name="backPlaceButton" className="place-self-center hover:w-11/12 h-fit">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#A29B9B" className="w-full h-16 div-1">
                                             <path stroke="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                                         </svg>
                                     </button>
-                                </div>
+                                </div> */}
+                                {/* { */}
                                 <div className="container grid grid-flow-col grid-rows-3 gap-2 pt-2 overflow-y-auto h-fit">{showRCMND()}</div>
+                                {/* &&
+                                    <ScrollMenu
+                                        data={showRCMND}
+                                        wheel={true} />
+                                } */}
                                 {/* 다음 슬라이딩 버튼 */}
-                                <div className="flex content-center pl-5">
+                                {/* <div className="flex content-center pl-5">
                                     <button type="button" name="nextPlaceButton" className="place-self-center hover:w-11/12 h-fit">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#A29B9B" className="w-full h-16 div-1">
                                             <path stroke="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                         </svg>
                                     </button>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="overflow-auto">
                             </div>
